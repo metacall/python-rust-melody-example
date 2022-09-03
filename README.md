@@ -12,6 +12,28 @@ This allows the users to invoke functions of rust libraries from other languages
 
 # Usage
 
+## Install metacall or build it from source
+
+We can build metacall from source using following commands:
+
+```bash
+git clone --branch v0.5.30 https://github.com/metacall/core --depth 1
+mkdir core/build && cd core/build
+cmake \
+    -DNODEJS_CMAKE_DEBUG=On \
+    -DOPTION_BUILD_LOADERS_PY=On \
+    -DOPTION_BUILD_LOADERS_RS=On \
+    -DOPTION_BUILD_PORTS=On \
+    -DOPTION_BUILD_PORTS_PY=On \
+    -DOPTION_BUILD_DETOURS=Off \
+    -DOPTION_BUILD_SCRIPTS=Off \
+    -DOPTION_BUILD_TESTS=Off \
+    -DOPTION_BUILD_EXAMPLES=Off \
+    ..
+cmake --build . --target install
+ldconfig /usr/local/lib
+```
+
 ## Prepare the rust library
 
 Here we choose to wrap [melody](https://github.com/yoav-lavi/melody), a language that compiles to ECMAScript regular expressions. In that way, we can create regex formula in a more readable and maintainable way, not just for rust but for many other languages.
@@ -31,6 +53,15 @@ Check the `main.py` to see what is happening.
 First, we load the compiled library using `metacall_load_from_package`, and then invoke the function with `metacall`.
 
 **Note that you should install `metacall` first or provide a environment variable `LOADER_LIBRARY_PATH` which includes `metacall` libraries, in order to use the python port.**
+
+## Run in docker
+
+```bash
+# build docker image
+docker build -t metacall/python-rust-example .
+# run it!
+docker run --rm -it metacall/python-rust-example
+```
 
 # Supported data types
 
