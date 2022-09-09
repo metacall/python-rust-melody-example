@@ -63,6 +63,12 @@ docker build -t metacall/python-rust-example .
 docker run --rm -it metacall/python-rust-example
 ```
 
+## Other examples
+
+1. Load from file through Python(`load_from_file.py`)
+
+2. Load from memory through Python(`load_from_memory.py`)
+
 # Supported data types
 
 Currently, Rust loader supports primitive types as parameters and the return value, including:

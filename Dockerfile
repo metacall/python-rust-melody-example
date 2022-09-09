@@ -47,7 +47,7 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly-202
 WORKDIR /root
 
 # Clone and build the project
-RUN git clone --branch v0.5.30 https://github.com/metacall/core --depth 1 \
+RUN git clone --branch v0.5.32 https://github.com/metacall/core --depth 1 \
 	&& mkdir core/build && cd core/build \
 	&& cmake \
 		-DNODEJS_CMAKE_DEBUG=On \
@@ -65,7 +65,8 @@ RUN git clone --branch v0.5.30 https://github.com/metacall/core --depth 1 \
 
 # Copy source files
 COPY melody_wrapper /root/melody_wrapper
-COPY main.py /root/
+COPY *.py /root/
+COPY *.rs /root/
 
 # Set up enviroment variables
 ENV LOADER_LIBRARY_PATH=/usr/local/lib
